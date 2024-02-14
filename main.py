@@ -10,7 +10,7 @@ class App(customtkinter.CTk):
     def __init__(self):
         super().__init__()
         self.title("image_example.py")
-        self.geometry("1200x900")
+        self.geometry("1000x650")
         self.image_path = ""
         self.temp_path = os.path.join(
             os.path.dirname(os.path.realpath(__file__)), "temp"
@@ -34,7 +34,7 @@ class App(customtkinter.CTk):
             text="sin imagen",
             image=customtkinter.CTkImage(
                 Image.open(os.path.join(self.icons_path, "image_icon_light.png")),
-                size=(500, 500),
+                size=(700, 600),
             ),
         )
         self.home_frame_large_image_label.grid(row=0, column=0, padx=50, pady=10)
@@ -118,9 +118,11 @@ class App(customtkinter.CTk):
             image=customtkinter.CTkImage(Image.open(self.image_path), size=(800, 600)),
         )
         self.home_frame_large_image_label.grid(row=0, column=0, padx=20, pady=10)
+     
 
     def __cortar_imgen(self):
         img_tmp = self.__openCV.CortarImagen(self.image_path)
+        print(img_tmp)
         self.image_path = os.path.join(self.temp_path, img_tmp)
         self.home_frame_large_image_label = customtkinter.CTkLabel(
             self.my_frame,
@@ -133,6 +135,7 @@ class App(customtkinter.CTk):
 
     def __rotar_imagen(self):
         img_tmp = self.__openCV.RotarImagen(self.image_path)
+       
         self.image_path = os.path.join(self.temp_path, img_tmp)
         self.home_frame_large_image_label = customtkinter.CTkLabel(
             self.my_frame,
