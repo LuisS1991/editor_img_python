@@ -4,6 +4,7 @@ import os
 from Uitles.FileHelper import seleccionarImge, rutaSeleccionada, eliminar_temporales
 from Uitles import Opencv
 import shutil
+import sys
 
 
 class App(customtkinter.CTk):
@@ -12,12 +13,8 @@ class App(customtkinter.CTk):
         self.title("image_example.py")
         self.geometry("1000x650")
         self.image_path = ""
-        self.temp_path = os.path.join(
-            os.path.dirname(os.path.realpath(__file__)), "temp"
-        )
-        self.icons_path = os.path.join(
-            os.path.dirname(os.path.realpath(__file__)), "test_images"
-        )
+        self.temp_path = "temp/"
+        self.icons_path = "recursos/"
         # set grid layout 1x2
         self.grid_rowconfigure(0, weight=1)
         self.grid_columnconfigure(1, weight=1)
@@ -118,7 +115,6 @@ class App(customtkinter.CTk):
             image=customtkinter.CTkImage(Image.open(self.image_path), size=(800, 600)),
         )
         self.home_frame_large_image_label.grid(row=0, column=0, padx=20, pady=10)
-     
 
     def __cortar_imgen(self):
         img_tmp = self.__openCV.CortarImagen(self.image_path)
@@ -135,7 +131,7 @@ class App(customtkinter.CTk):
 
     def __rotar_imagen(self):
         img_tmp = self.__openCV.RotarImagen(self.image_path)
-       
+
         self.image_path = os.path.join(self.temp_path, img_tmp)
         self.home_frame_large_image_label = customtkinter.CTkLabel(
             self.my_frame,
@@ -151,6 +147,17 @@ class App(customtkinter.CTk):
         shutil.copy(self.image_path, destino)
         eliminar_temporales(self.temp_path)
         pass
+
+
+def resource_path(relative_path):
+    """Get absolute path to resource, works for dev and for PyInstaller"""
+    try:
+        # PyInstaller creates a temp folder and stores path in _MEIPASS
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
 
 
 if __name__ == "__main__":
