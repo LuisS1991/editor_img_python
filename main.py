@@ -60,6 +60,10 @@ class App(customtkinter.CTk):
             hover_color=("gray70", "gray30"),
             anchor="w",
             command=self.__seleccionar_imagen,
+            image=customtkinter.CTkImage(
+                Image.open(os.path.join(self.icons_path, "image_icon_light.png")),
+                size=(20, 20),
+            ),
         )
         self.home_button.grid(row=1, column=0, sticky="ew")
 
@@ -105,6 +109,13 @@ class App(customtkinter.CTk):
         )
         self.frame_4_button.grid(row=4, column=0, sticky="ew")
 
+        self.appearance_mode_menu = customtkinter.CTkOptionMenu(
+            self.navigation_frame,
+            values=["Light", "Dark", "System"],
+            command=self.change_appearance_mode_event,
+        )
+        self.appearance_mode_menu.grid(row=6, column=0, padx=20, pady=20, sticky="s")
+
     # eventos
     def __seleccionar_imagen(self):
         # print("evento")
@@ -147,6 +158,9 @@ class App(customtkinter.CTk):
         shutil.copy(self.image_path, destino)
         eliminar_temporales(self.temp_path)
         pass
+
+    def change_appearance_mode_event(self, new_appearance_mode):
+        customtkinter.set_appearance_mode(new_appearance_mode)
 
 
 def resource_path(relative_path):
