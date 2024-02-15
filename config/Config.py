@@ -1,0 +1,5 @@
+temp_path = "temp/"
+icons_path = "recursos/"
+imagen_empyt_default = "recursos/image_icon_light.png"
+imagen_rotada = "img_temp_rotada_90.jpeg"
+imagen_cortada = "temp_recortada.jpeg"
